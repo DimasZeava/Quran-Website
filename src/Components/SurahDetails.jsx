@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { TranslationContext } from '../context.jsx';
 
 const SurahDetails = () => {
   const { surahNumber } = useParams();
+  const { translation } = useContext(TranslationContext);
   const [surah, setSurah] = useState(null);
-  const [translation, setTranslation] = useState(null);
+  const [translationData, setTranslationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,22 +15,18 @@ const SurahDetails = () => {
   useEffect(() => {
     const fetchSurah = async () => {
       try {
-        const responseArabic = await fetch(
-          `https://api.alquran.cloud/v1/surah/${surahNumber}`
-        );
-        const responseIndonesian = await fetch(
-          `https://api.alquran.cloud/v1/surah/${surahNumber}/id.indonesian`
-        );
+        const responseArabic = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
+        const responseTranslation = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/${translation}`);
 
-        if (!responseArabic.ok || !responseIndonesian.ok) {
+        if (!responseArabic.ok || !responseTranslation.ok) {
           throw new Error("Network response was not ok");
         }
 
         const dataArabic = await responseArabic.json();
-        const dataIndonesian = await responseIndonesian.json();
+        const dataTranslation = await responseTranslation.json();
 
         setSurah(dataArabic.data);
-        setTranslation(dataIndonesian.data);
+        setTranslationData(dataTranslation.data);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -37,7 +35,7 @@ const SurahDetails = () => {
     };
 
     fetchSurah();
-  }, [surahNumber]);
+  }, [surahNumber, translation]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -66,13 +64,13 @@ const SurahDetails = () => {
 
   return (
     <div>
-      <h1>{surah.englishName}</h1>
-      <p>{surah.englishNameTranslation}</p>
+      <h1>{translationData.name}</h1>
+      <p>{translationData.englishNameTranslation}</p>
       <ul>
         {currentAyahs.map((ayah, index) => (
           <li key={ayah.numberInSurah}>
             <p>{ayah.text}</p>
-            <p>{translation.ayahs[indexOfFirstAyah + index].text}</p>
+            <p>{translationData.ayahs[indexOfFirstAyah + index].text}</p>
           </li>
         ))}
       </ul>
@@ -80,10 +78,7 @@ const SurahDetails = () => {
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>
           Previous
         </button>
-        <span>
-          {" "}
-          Page {currentPage} of {totalPages}{" "}
-        </span>
+        <span> Page {currentPage} of {totalPages} </span>
         <button onClick={handleNextPage} disabled={currentPage === totalPages}>
           Next
         </button>
