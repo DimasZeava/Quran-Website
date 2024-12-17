@@ -33,7 +33,7 @@ const Surah = () => {
   }
 
   return (
-    <div>
+    <div className="max-w-screen-lg">
       <h1>Surahs</h1>
       <ul>
         {data.map((surah) => (

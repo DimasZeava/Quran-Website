@@ -63,7 +63,7 @@ const SurahDetails = () => {
   };
 
   return (
-    <div>
+    <div className='max-w-screen-lg'>
       <h1>{translationData.name}</h1>
       <p>{translationData.englishNameTranslation}</p>
       <ul>
