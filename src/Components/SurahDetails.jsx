@@ -38,11 +38,11 @@ const SurahDetails = () => {
   }, [surahNumber, translation]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center mt-10 text-lg text-gray-600">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="text-center text-red-500 mt-10">{error.message}</div>;
   }
 
   const indexOfLastAyah = currentPage * ayahsPerPage;
@@ -51,39 +51,56 @@ const SurahDetails = () => {
   const totalPages = Math.ceil(surah.ayahs.length / ayahsPerPage);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   return (
-    <div className='max-w-screen-lg'>
-      <h1>{translationData.name}</h1>
-      <p>{translationData.englishNameTranslation}</p>
-      <ul>
+    <div className="max-w-4xl mx-auto p-4 dark:bg-gray-900 dark:text-gray-100 rounded-lg shadow-lg">
+      <h1 className="text-3xl font-bold text-center mb-2">{translationData.name}</h1>
+      <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-6">{translationData.englishNameTranslation}</p>
+      
+      <ul className="space-y-6">
         {currentAyahs.map((ayah, index) => (
-          <li key={ayah.numberInSurah}>
-            <p>{ayah.text}</p>
-            <p>{translationData.ayahs[indexOfFirstAyah + index].text}</p>
+          <li key={ayah.numberInSurah} className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+            <p className="text-right text-2xl font-arabic leading-relaxed mb-2 text-gray-800 dark:text-gray-200">
+              {ayah.text}
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm italic">
+              {translationData.ayahs[indexOfFirstAyah + index].text}
+            </p>
           </li>
         ))}
       </ul>
-      <div>
-        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+
+      <div className="flex justify-between items-center mt-8">
+        <button 
+          onClick={handlePreviousPage} 
+          disabled={currentPage === 1}
+          className={`px-4 py-2 rounded-lg ${currentPage === 1 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-500"}`}
+        >
           Previous
         </button>
-        <span> Page {currentPage} of {totalPages} </span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <span className="text-gray-600 dark:text-gray-300">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button 
+          onClick={handleNextPage} 
+          disabled={currentPage === totalPages}
+          className={`px-4 py-2 rounded-lg ${currentPage === totalPages ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-500"}`}
+        >
           Next
         </button>
       </div>
-      <Link to="/">Back</Link>
+
+      <div className="mt-8 text-center">
+        <Link to="/" className="text-blue-600 dark:text-blue-400 hover:underline">
+          &larr; Back to Surah List
+        </Link>
+      </div>
     </div>
   );
 };

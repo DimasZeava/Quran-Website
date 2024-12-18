@@ -15,3 +15,43 @@ button:focus,
 button:focus-visible {
   @apply outline-none ring-4 ring-blue-300;
 }
+
+/* Surah styles */
+.surah-container {
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6;
+}
+
+.surah-card {
+  @apply bg-white shadow-lg rounded-lg p-4 text-center font-semibold text-gray-700 
+  hover:bg-gray-100 hover:shadow-2xl transition-transform duration-300 transform hover:-translate-y-1;
+  /* @apply bg-blue-900 text-white rounded-lg p-4 shadow-lg hover:bg-blue-800 transition-colors duration-300; */
+  user-select: none; /* Mencegah highlight pada teks */
+}
+
+.surah-link {
+  @apply text-lg font-medium text-gray-800 hover:text-blue-600 transition-colors duration-200;
+  user-select: none; /* Mencegah highlight pada teks link */
+}
+
+/* Header styles */
+.surah-header {
+  @apply text-3xl font-bold text-gray-800 text-center my-4;
+}
+
+.font-arabic {
+  @apply text-right text-3xl font-serif text-gray-900 dark:text-gray-100 leading-relaxed;
+  font-family: 'Noto Naskh Arabic', serif;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+.font-translation {
+  @apply text-left text-xl text-gray-700 dark:text-gray-300 mt-2;
+}
