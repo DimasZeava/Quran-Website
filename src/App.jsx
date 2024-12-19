@@ -11,6 +11,8 @@ import Surah from "./Components/Surah.jsx";
 import Search from "./Components/Search";
 import SearchResult from "./Components/SearchResult";
 import "./index.css";
+import Juz from "./Components/Juz.jsx";
+import JuzDetail from "./Components/JuzDetail.jsx";
 
 const AppContent = () => {
   const { darkMode } = useContext(ThemeContext);
@@ -22,9 +24,16 @@ const AppContent = () => {
       }`}
     >
       <Header />
-      <Search />
+      <div className="hero">
+        <h1 className="title"> Qur&apos;an Website</h1>
+        <h3 className="description">
+          Mari baca Al-Qur&apos;an dan mendekat kepada Allah Swt.
+        </h3>
+        <Search />
+      </div>
       <Routes>
-        <Route path="/" element={<Surah />} />
+        <Route path="/" element={<><Juz /><Surah /></>} />
+        <Route path="/juz/:juzNumber" element={<JuzDetail />} />
         <Route path="/surah/:surahNumber" element={<SurahDetails />} />
         <Route path="/search" element={<SearchResult />} />
       </Routes>
