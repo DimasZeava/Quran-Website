@@ -25,13 +25,13 @@ const Header = () => {
         onClick={() => changeTranslation("id.indonesian")}
         className="px-4 py-2 bg-green-500 text-white rounded ml-2 dark:bg-green-700"
       >
-        Indonesian Translation
+        ID
       </button>
       <button
         onClick={() => changeTranslation("en.asad")}
         className="px-4 py-2 bg-red-500 text-white rounded ml-2 dark:bg-red-700"
       >
-        English Translation
+        EN
       </button>
     </div>
   );

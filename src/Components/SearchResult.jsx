@@ -40,9 +40,9 @@ const SearchResult = () => {
       <h2>Search Results for &quot;{query}&quot;</h2>
       <ul>
         {results.map((result) => (
-          <li key={result.number}>
+          <div key={result.number} className="surah-card">
             <Link to={`/surah/${result.number}`}>{result.englishName}</Link>
-          </li>
+          </div>
         ))}
       </ul>
     </div>
