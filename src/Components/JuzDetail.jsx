@@ -51,9 +51,9 @@ const JuzDetail = () => {
       <div className="mt-4">
         <ul className="mt-2">
           {juz.ayahs.map((ayah) => (
-            <li key={ayah.number} className="mb-2">
+            <li key={ayah.number} className="ayah-container mb-2">
               <p className="text-right text-2xl font-arabic leading-relaxed mb-2 text-gray-800 dark:text-gray-200">
-                {ayah.text} <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">({toArabicNumber(ayah.numberInSurah)})</span>
+                {ayah.text} <span className="ayah-number text-sm text-gray-500 dark:text-gray-400 mr-2">({toArabicNumber(ayah.numberInSurah)})</span>
               </p>
             </li>
           ))}
