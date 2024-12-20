@@ -49,8 +49,8 @@ const Juz = () => {
   }
 
   return (
-    <>
-      <h1 className="surah-header text-gray-800 dark:text-white">Daftar Juz</h1>
+    <div className="max-w-screen-lg mx-auto">
+      <h1 className="surah-header text-gray-800 dark:text-white">List of Juz</h1>
       <div className="surah-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
         {juzs.map((juz) => (
           <div
@@ -66,7 +66,7 @@ const Juz = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

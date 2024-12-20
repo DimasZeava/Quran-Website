@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Search from "./Search";
 
 const SearchResult = () => {
   const location = useLocation();
@@ -36,13 +37,16 @@ const SearchResult = () => {
   }
 
   return (
-    <div>
-      <h2>Search Results for &quot;{query}&quot;</h2>
-      <ul>
+    <div className="p-4">
+      <Search />
+      <h2 className="text-xl font-semibold mt-10 mb-4">Search Results for &quot;{query}&quot;</h2>
+      <ul className="space-y-4">
         {results.map((result) => (
-          <div key={result.number} className="surah-card">
-            <Link to={`/surah/${result.number}`}>{result.englishName}</Link>
-          </div>
+          <li key={result.number} className="surah-card p-4 bg-white shadow-md rounded-lg hover:bg-gray-100">
+            <Link to={`/surah/${result.number}`} className="text-gray-900">
+              {result.englishName}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

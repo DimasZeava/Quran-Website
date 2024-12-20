@@ -45,7 +45,7 @@ const Surah = () => {
 
   return (
     <div className="max-w-screen-lg mx-auto">
-      <h1 className="surah-header text-gray-800 dark:text-white">Daftar Surah</h1>
+      <h1 className="surah-header text-gray-800 dark:text-white">List of Surah</h1>
       <div className="surah-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
         {currentSurahs.map((surah) => (
           <div key={surah.number} className="surah-card bg-white shadow-lg rounded-lg p-4 text-center hover:bg-gray-100 hover:shadow-2xl transform hover:-translate-y-1 transition-transform duration-300">
@@ -57,7 +57,7 @@ const Surah = () => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-6 mb-10">
         {Array.from({ length: Math.ceil(data.length / surahPerPage) }).map((_, index) => (
           <button
             key={index}
