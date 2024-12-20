@@ -7,26 +7,31 @@ const SurahDetails = () => {
   const { translation } = useContext(TranslationContext);
   const [surah, setSurah] = useState(null);
   const [translationData, setTranslationData] = useState(null);
+  const [audioData, setAudioData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const ayahsPerPage = 10;
+  const audioEdition = "ar.alafasy"; // Example audio edition ID
 
   useEffect(() => {
     const fetchSurah = async () => {
       try {
         const responseArabic = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
         const responseTranslation = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/${translation}`);
+        const responseAudio = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/${audioEdition}`);
 
-        if (!responseArabic.ok || !responseTranslation.ok) {
+        if (!responseArabic.ok || !responseTranslation.ok || !responseAudio.ok) {
           throw new Error("Network response was not ok");
         }
 
         const dataArabic = await responseArabic.json();
         const dataTranslation = await responseTranslation.json();
+        const dataAudio = await responseAudio.json();
 
         setSurah(dataArabic.data);
         setTranslationData(dataTranslation.data);
+        setAudioData(dataAudio.data);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -72,6 +77,14 @@ const SurahDetails = () => {
             <p className="text-gray-600 dark:text-gray-400 text-sm italic">
               {translationData.ayahs[indexOfFirstAyah + index].text}
             </p>
+            {audioData && audioData.ayahs[indexOfFirstAyah + index] && (
+              <audio
+                controls
+                src={audioData.ayahs[indexOfFirstAyah + index].audio}
+                className="mt-4 w-full">
+                Your browser does not support the audio element.
+              </audio>
+            )}
           </li>
         ))}
       </ul>
